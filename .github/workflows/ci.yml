@@ -1,0 +1,18 @@
+name: CI
+on:
+  push: { branches: [main] }
+  pull_request:
+jobs:
+  build-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - name: Install xml/zip tooling
+        run: sudo apt-get update -q && sudo apt-get install -y -q libxml2-utils unzip
+      - run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Validate .phr compliance against official XSDs
+        run: npm run validate:phr
