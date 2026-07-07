@@ -7,7 +7,7 @@
 及其完整性校验信息"。按字面理解 manifest.xml 需要包含自身条目，但清单若含自身的
 SHA-256 校验值，会形成"写入哈希会改变文件内容、从而改变哈希"的自引用悖论，逻辑上不可实现。
 
-作为第三方实现（phr-personal-manager），我们目前参照 ODF（OpenDocument）惯例，
+作为第三方实现（(https://github.com/ZBC1206/phr-personal-manager)），我们目前参照 ODF（OpenDocument）惯例，
 将 manifest.xml 与 mimetype、signatures.xml 一并排除在清单之外，并已通过 manifest.xsd 校验。
 
 建议规范在下一修订版中明确其一：
