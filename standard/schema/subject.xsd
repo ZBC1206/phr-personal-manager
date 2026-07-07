@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:phr="https://www.omaha.org.cn/standard/phr/v1.0"
+           targetNamespace="https://www.omaha.org.cn/standard/phr/v1.0"
+           elementFormDefault="qualified"> 
+
+    <!--复杂元素的定义 -->
+    <xs:element name="subject">
+        <xs:annotation>
+            <xs:documentation>主体信息：个人健康档案所属个体的身份标识及人口学特征等信息</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="phr:personalinfo"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="personalinfo">
+        <xs:annotation>
+            <xs:documentation>个人基本信息：个人的身份标识、人口学特征和联系方式等信息</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="phr:name"/>
+                <xs:element ref="phr:genderCode" minOccurs="0"/>
+                <xs:element ref="phr:birthTime" minOccurs="0"/>
+                <xs:element ref="phr:nationality" minOccurs="0"/>
+                <xs:element ref="phr:personalId" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="phr:ethnicGroupCode" minOccurs="0"/>
+                <xs:element ref="phr:maritalStatusCode" minOccurs="0"/>
+                <xs:element ref="phr:educationLevel" minOccurs="0"/>
+                <xs:element ref="phr:occupationCode" minOccurs="0"/>
+                <xs:element ref="phr:telecom" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="phr:email" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="phr:addr" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="phr:participant" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="phr:extensions" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="personalId">
+        <xs:annotation>
+            <xs:documentation>证件信息：个人身份证件信息的容器元素</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="phr:idType"/>
+                <xs:element ref="phr:id"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="addr">
+        <xs:annotation>
+            <xs:documentation>地址信息：个人地址信息的容器元素</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="phr:state" />
+                <xs:element ref="phr:city" />
+                <xs:element ref="phr:county" minOccurs="0"/>
+                <xs:element ref="phr:address" />
+                <xs:element ref="phr:postalCode" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="participant">
+        <xs:annotation>
+            <xs:documentation>联系人：联系人信息的容器元素</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="phr:participantName"/>
+                <xs:element ref="phr:participantTelecom"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="extensions">
+        <xs:annotation>
+            <xs:documentation>自定义字段集合：用于容纳所有本规范未定义的扩展业务字段的容器元素</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="phr:extension" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="extension">
+        <xs:annotation>
+            <xs:documentation>自定义字段：单个扩展信息条目，通过属性记录特定的字段名称及其对应的值</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="name" type="xs:string" use="required"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- 简单元素的定义 -->
+    <xs:element name="name" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>姓名：个人在公安管理部门正式登记注册的姓氏和名称</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="genderCode">
+        <xs:annotation>
+            <xs:documentation>性别：个人生理性别在特定编码体系中的代码</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="0">
+                    <xs:annotation>
+                        <xs:documentation>未知的性别</xs:documentation>
+                    </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="1">
+                    <xs:annotation>
+                        <xs:documentation>男</xs:documentation>
+                    </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="2">
+                    <xs:annotation>
+                        <xs:documentation>女</xs:documentation>
+                    </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="9">
+                    <xs:annotation>
+                        <xs:documentation>未说明的性别</xs:documentation>
+                    </xs:annotation>
+                </xs:enumeration>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="birthTime" type="xs:date">
+        <xs:annotation>
+            <xs:documentation>出生日期：个人出生当日的公元纪年日期</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="nationality" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>国籍：个人所属国籍在特定编码体系中的代码</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="idType" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>证件类型：个人身份证件所属类别在特定编码体系中的代码</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="id" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>证件号码：个人的身份证件上的唯一法定标识符</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="ethnicGroupCode" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>民族：个人所属民族类别在特定编码体系中的代码</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="maritalStatusCode" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>婚姻状况：个人当前婚姻状况代码</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="educationLevel" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>文化程度：个人受教育最高程度的类别在特定编码体系中的代码</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="occupationCode" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>职业：个人从事职业所属类别在特定编码体系中的代码</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="telecom" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>联系电话：个人的电话号码，包括国际、国内区号和分机号</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="email" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>邮箱：个人的电子邮箱地址</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="state" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>地址-省：地址中的省、自治区或直辖市名称</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="city" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>地址-市：地址中的市、地区或州的名称</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="county" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>地址-区：地址中的县或区名称</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="address" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>地址-详细地址：地址中的街道或路、小区和门牌号等信息</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="postalCode" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>地址-邮政编码：与地址对应的邮局及其投递区域的邮政通信代号</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="participantName" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>联系人姓名：联系人在公安管理部门正式登记注册的姓氏和名称</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="participantTelecom" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>联系人电话：联系人的电话号码，包括国际、国内区号和分机号</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+</xs:schema>

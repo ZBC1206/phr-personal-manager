@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:phr="https://www.omaha.org.cn/standard/phr/v1.0"
+           targetNamespace="https://www.omaha.org.cn/standard/phr/v1.0"
+           elementFormDefault="qualified"> 
+
+    <!--复杂元素的定义 -->
+    <xs:element name="content">
+        <xs:annotation>
+            <xs:documentation>健康档案内容：存储个人健康档案内所有的健康医疗数据内容</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="phr:contentVersion"/>
+                <xs:element ref="phr:records"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="records">
+        <xs:annotation>
+            <xs:documentation>健康记录集合:个人健康档案中所有健康记录的集合</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="phr:record" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="record">
+        <xs:annotation>
+            <xs:documentation>健康记录:单份健康记录数据</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="phr:recordId"/>
+                <xs:element ref="phr:relatedId" minOccurs="0"/>
+                <xs:element ref="phr:visitId" minOccurs="0"/>
+                <xs:element ref="phr:recordTitle"/>
+                <xs:element ref="phr:recordType"/>
+                <xs:element ref="phr:eventTime"/>
+                <xs:element ref="phr:provider" minOccurs="0"/>
+                <xs:element ref="phr:providerType" minOccurs="0"/>
+                <xs:element ref="phr:recordCreator"/>
+                <xs:element ref="phr:recordCreateTime"/>
+                <xs:element ref="phr:recordUpdater" minOccurs="0"/>
+                <xs:element ref="phr:recordUpdateTime" minOccurs="0"/>
+                <xs:element ref="phr:summary" minOccurs="0"/>
+                <xs:element ref="phr:tags" minOccurs="0"/>
+                <xs:element ref="phr:components" minOccurs="1"/>
+                <xs:element ref="phr:attachments" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="eventTime">
+        <xs:annotation>
+            <xs:documentation>业务活动发生时间:记录健康记录所对应业务活动的发生时间，可表示瞬时事件（仅开始时间）或持续时间段（开始与结束时间）</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="phr:eventStart"/>
+                <xs:element ref="phr:eventEnd" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="components">
+        <xs:annotation>
+            <xs:documentation>健康记录业务内容集合:健康记录关联的所有业务内容数据的容器元素</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="phr:component" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="component">
+        <xs:annotation>
+            <xs:documentation>健康记录业务内容：健康记录关联的业务内容文件，包含文件名、路径等信息</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="phr:template" minOccurs="0"/>
+                <xs:element ref="phr:generationMode" minOccurs="0"/>
+                <xs:element ref="phr:sourceRefs" minOccurs="0"/>
+                <xs:element ref="phr:processingInfo" minOccurs="0"/>
+            </xs:sequence>
+            <xs:attribute name="fileName" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>文件名称</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="fileType" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>文件媒体类型（MIME）</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="path" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>文件路径：文件在封装包内的相对路径</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="submitter" type="xs:string" >
+                <xs:annotation>
+                    <xs:documentation>文件上传者</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="submitterType">
+                <xs:annotation>
+                    <xs:documentation>文件上传者类型</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="医疗服务提供方"/>
+                        <xs:enumeration value="第三方商业机构"/>
+                        <xs:enumeration value="个人及监护人"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="submissionMethod">
+                <xs:annotation>
+                    <xs:documentation>文件上传方式(手动录入、数据同步、系统生成等)</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="手动录入"/>
+                        <xs:enumeration value="数据同步"/>
+                        <xs:enumeration value="系统生成"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="template">
+        <xs:annotation>
+            <xs:documentation>引用的标准模板：健康记录业务内容文件所遵循的标准规范或数据模板信息</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="code" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>标准模板代码：引用或符合的标准模板代码</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="codeSystem" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>标准体系OID：标准模板所在标准规范体系的对象标识符（OID）</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="codeSystemName" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>标准体系名称：标准模板所在标准规范体系的名称</xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:extension>    
+            </xs:simpleContent>    
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="sourceRefs">
+        <xs:annotation>
+            <xs:documentation>引用文件集合：形成健康记录业务内容的全部引用文件的容器元素</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="phr:sourceRef" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="sourceRef">
+        <xs:annotation>
+            <xs:documentation>引用文件：形成健康记录业务内容所引用的单份文件，支持跨记录引用</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="refPath" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>引用路径：文件在封装包内的相对路径，以“/”开头表示根目录，支持跨记录引用格式</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="processingInfo">
+        <xs:annotation>
+            <xs:documentation>处理信息：仅在形成方式为算法推导或涉及信息加工时使用，用于记录算法或大模型处理的元数据</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="phr:algorithm"/>
+                <xs:element ref="phr:algorithmVersion"/>
+                <xs:element ref="phr:processedTime"/>
+                <xs:element ref="phr:confidence" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="attachments">
+        <xs:annotation>
+            <xs:documentation>附件集合：健康记录关联所有附件的容器元素</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="phr:attachment" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="attachment">
+        <xs:annotation>
+            <xs:documentation>单份附件：健康记录关联的单份附件信息</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="fileName" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>文件名称</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="fileType" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>文件媒体类型</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="path" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>文件路径：文件在封装包内的相对路径</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="submitter" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>文件上传者</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="submitterType">
+                <xs:annotation>
+                    <xs:documentation>文件上传者类型</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="医疗服务提供方"/>
+                        <xs:enumeration value="第三方商业机构"/>
+                        <xs:enumeration value="个人及监护人"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="submissionMethod">
+                <xs:annotation>
+                    <xs:documentation>文件上传方式(手动录入、数据同步、系统生成等)</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="手动录入"/>
+                        <xs:enumeration value="数据同步"/>
+                        <xs:enumeration value="系统生成"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- 简单元素的定义 -->
+    <xs:element name="contentVersion" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>健康档案内容文件版本：标识 content.xml 内部结构的版本，独立于个人健康档案封装包格式规范版本，用于支持向后兼容</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="recordId" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>健康记录标识符：健康记录的唯一标识符，本规范要求使用小写 UUID（版本 4）作为全局唯一标识符</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="relatedId" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>健康记录关联标识：引用另一份健康记录的唯一标识符，用于建立记录间的关联</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="visitId" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>业务流水号：健康记录对应业务活动的流水号（如就诊流水号、体检流水号等）</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="recordTitle" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>健康记录标题：单份健康记录的标题（如血常规检验报告、CT检查报告等）</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="recordType">
+        <xs:annotation>
+            <xs:documentation>健康记录类型：健康档案记录所属的具体业务领域或临床文档类型</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="门诊记录"/>
+                <xs:enumeration value="住院记录"/>
+                <xs:enumeration value="检验报告"/>
+                <xs:enumeration value="检查报告"/>
+                <xs:enumeration value="处方单"/>
+                <xs:enumeration value="体检报告"/>
+                <xs:enumeration value="其他"/>
+            </xs:restriction>
+        </xs:simpleType>        
+    </xs:element>
+    <xs:element name="eventStart" type="xs:dateTime">
+        <xs:annotation>
+            <xs:documentation>业务活动开始时间：业务活动发生的开始时间，如瞬时事件的时间点或持续时间段的起始时间</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="eventEnd" type="xs:dateTime">
+        <xs:annotation>
+            <xs:documentation>业务活动结束时间：业务活动发生的结束时间，仅持续时间段业务中存在</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="provider" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>健康记录提供者：提供或产生健康记录的具体机构、组织或个人等责任主体的名称</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="providerType">
+        <xs:annotation>
+            <xs:documentation>健康提供者类型：对提供或产生记录的责任主体按其组织性质或身份进行的分类</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="医疗服务提供方"/>
+                <xs:enumeration value="第三方商业机构"/>
+                <xs:enumeration value="个人及监护人"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="recordCreator" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>健康记录创建者</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="recordCreateTime" type="xs:dateTime">
+        <xs:annotation>
+            <xs:documentation>健康记录创建时间</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="recordUpdater" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>健康记录更新者</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="recordUpdateTime" type="xs:dateTime">
+        <xs:annotation>
+            <xs:documentation>健康记录更新时间</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="summary" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>健康记录摘要：健康记录的摘要信息</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="tags" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>健康记录标签：健康记录的标签，多个标签以“,”分隔号</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="generationMode">
+        <xs:annotation>
+            <xs:documentation>健康记录形成方式：健康记录业务内容形成的方式，包括人工记录形成、硬件采集直接获取或算法模型加工得出</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="人工记录"/>
+                <xs:enumeration value="设备采集"/>
+                <xs:enumeration value="算法推导"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="algorithm" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>算法名称：存储解析算法或大模型的名称</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="algorithmVersion" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>算法版本：存储解析算法或大模型的版本，用于回溯特定版本的表现</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="processedTime" type="xs:dateTime">
+        <xs:annotation>
+            <xs:documentation>处理完成时间：存储算法或大模型加工处理完成时的精确时间</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="confidence" type="xs:decimal">
+        <xs:annotation>
+            <xs:documentation>置信度：存储算法处理结果的整体置信度，取值范围 0-1 之间的浮点数</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+</xs:schema>

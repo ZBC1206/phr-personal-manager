@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:phr="https://www.omaha.org.cn/standard/phr/v1.0"
+           targetNamespace="https://www.omaha.org.cn/standard/phr/v1.0"
+           elementFormDefault="qualified">
+
+    <!-- 复杂元素定义 -->
+    <xs:element name="encryption">
+        <xs:annotation>
+            <xs:documentation>加密参数：个人健康档案在口令派生模式下的加密参数信息</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="phr:algorithm"/>
+                <xs:element ref="phr:iv"/>
+                <xs:element ref="phr:salt"/>
+                <xs:element ref="phr:iterationCount"/>
+                <xs:element ref="phr:hashAlgorithm"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- 简单元素定义 -->
+    <xs:element name="algorithm" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>加密算法：数据加密所使用的对称加密算法，仅限 GCM 认证加密模式</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="iv" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>初始化向量：对称加密算法（GCM 模式）使用的初始化向量，每次加密必须使用密码学安全随机数生成器生成新的向量值，并以 Base64 格式编码存储</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="salt" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>随机盐值：PBKDF2算法的随机字节序列，每次加密必须使用密码学安全随机数生成器生成新的盐值。长度不少于16字节，并以 Base64 格式编码存储</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="iterationCount" type="xs:integer">
+        <xs:annotation>
+            <xs:documentation>迭代次数：PBKDF2算法的迭代次数，用于减缓暴力破解速度，迭代次数越高则安全性越高，推荐值 ≥ 310000</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="hashAlgorithm" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>哈希算法：PBKDF2内部使用的哈希算法，本规范要求必须支持 SHA-256，并推荐在高性能环境下使用 SHA-512或其他算法</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+</xs:schema>

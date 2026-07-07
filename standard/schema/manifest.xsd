@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:phr="https://www.omaha.org.cn/standard/phr/v1.0"
+           targetNamespace="https://www.omaha.org.cn/standard/phr/v1.0"
+           elementFormDefault="qualified"> 
+
+    <!--复杂元素的定义 -->
+	<xs:element name="manifest">
+		<xs:annotation>
+			<xs:documentation>文件清单：个人健康档案的文件清单</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="phr:fileEntry" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="fileEntry">
+		<xs:annotation>
+			<xs:documentation>文件实体：个人健康档案的所有文件实体</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="fileType" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>文件类型：文件的文件媒体类型（MIME）</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="path" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>文件路径：文件在封装包内的相对路径，以“/”开头表示根目录</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="size" type="xs:long" use="required">
+                <xs:annotation>
+                    <xs:documentation>文件大小（字节）</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="checksum" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>文件哈希值</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+			<xs:attribute name="checksumType" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>校验算法类型：如 SHA-256 、SM3等</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
+

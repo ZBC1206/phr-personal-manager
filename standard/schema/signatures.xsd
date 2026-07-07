@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:phr="https://www.omaha.org.cn/standard/phr/v1.0"
+           xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+           targetNamespace="https://www.omaha.org.cn/standard/phr/v1.0"
+           elementFormDefault="qualified">
+
+    <!-- 引用 W3C XML-DSig 标准运行时 Schema -->
+    <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" 
+               schemaLocation="http://www.w3.org/TR/xmldsig-core/xmldsig-core-schema.xsd"/>
+
+    <!-- 复杂元素定义 -->
+    <xs:element name="signatures">
+        <xs:annotation>
+            <xs:documentation>数字签名：个人健康档案内所有的数字签名信息集合</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <!-- 直接引用 W3C 标准元素 Signature，允许存在一个或多个签名（例如：患者签名 + 医生签名）-->
+                <xs:element ref="ds:Signature" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
+
+

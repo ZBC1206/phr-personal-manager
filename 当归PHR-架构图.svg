@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 848" font-family="'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#21374D"/>
+    </marker>
+    <marker id="arrDash" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8A8578"/>
+    </marker>
+  </defs>
+
+  <rect width="1180" height="848" fill="#F5F6F2"/>
+
+  <!-- 标题 -->
+  <text x="40" y="46" font-family="'Noto Serif SC','Songti SC',serif" font-size="26" fill="#21374D" letter-spacing="2">当归 · 个人病历自主管理工具 — 系统架构</text>
+  <text x="40" y="70" font-size="12" fill="#5A6E80">基于 OMAHA「当归」个人健康档案文件格式规范 v1.0　·　架构版本 v0.1　·　2026-07</text>
+
+  <!-- 分栏 -->
+  <line x1="592" y1="96" x2="592" y2="756" stroke="#D8DED4" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="40" y="112" font-family="'Noto Serif SC',serif" font-size="15" fill="#21374D">① MVP 交互原型 · 纯前端（本次交付）</text>
+  <text x="620" y="112" font-family="'Noto Serif SC',serif" font-size="15" fill="#21374D">② 生产形态 · 前后端分离（规划）</text>
+
+  <!-- ============ 左栏：MVP ============ -->
+  <!-- 用户 -->
+  <rect x="40" y="130" width="200" height="42" rx="3" fill="#FFFFFF" stroke="#D8DED4"/>
+  <text x="140" y="156" font-size="13" fill="#21374D" text-anchor="middle" font-weight="600">个人用户（浏览器）</text>
+
+  <!-- 模型 API -->
+  <rect x="330" y="130" width="230" height="42" rx="3" fill="#FFFFFF" stroke="#21374D" stroke-width="1.2"/>
+  <text x="445" y="148" font-size="12.5" fill="#21374D" text-anchor="middle" font-weight="600">Claude 视觉模型 API</text>
+  <text x="445" y="164" font-size="10.5" fill="#5A6E80" text-anchor="middle">claude-sonnet-4-6 · 强约束 JSON 抽取</text>
+
+  <line x1="140" y1="172" x2="140" y2="205" stroke="#21374D" stroke-width="1.3" marker-end="url(#arr)"/>
+
+  <!-- SPA 容器 -->
+  <rect x="40" y="205" width="520" height="332" rx="4" fill="none" stroke="#21374D" stroke-width="1.5"/>
+  <text x="55" y="228" font-size="12.5" fill="#21374D" font-weight="600">React 单页应用（数据不出本机）</text>
+
+  <!-- 表现层 tabs -->
+  <g font-size="10.5" fill="#5A6E80" text-anchor="middle">
+    <rect x="55"  y="240" width="90" height="26" rx="2" fill="#EAEFE8"/><text x="100" y="257" fill="#21374D">档案</text>
+    <rect x="154" y="240" width="90" height="26" rx="2" fill="#EAEFE8"/><text x="199" y="257" fill="#21374D">上传解析</text>
+    <rect x="253" y="240" width="90" height="26" rx="2" fill="#EAEFE8"/><text x="298" y="257" fill="#21374D">病程时间轴</text>
+    <rect x="352" y="240" width="90" height="26" rx="2" fill="#EAEFE8"/><text x="397" y="257" fill="#21374D">知识图谱</text>
+    <rect x="451" y="240" width="90" height="26" rx="2" fill="#EAEFE8"/><text x="496" y="257" fill="#21374D">设置与导出</text>
+  </g>
+
+  <!-- 业务模块层 -->
+  <g>
+    <rect x="55" y="288" width="155" height="94" rx="3" fill="#FFFFFF" stroke="#D8DED4"/>
+    <text x="132" y="308" font-size="12" fill="#21374D" text-anchor="middle" font-weight="600">M1 智能解析</text>
+    <text x="132" y="326" font-size="10" fill="#5A6E80" text-anchor="middle">图片压缩 → AI 抽取</text>
+    <text x="132" y="341" font-size="10" fill="#B3372B" text-anchor="middle">→ 人工确认（强制）</text>
+    <text x="132" y="356" font-size="10" fill="#5A6E80" text-anchor="middle">→ 入档</text>
+    <text x="132" y="372" font-size="9.5" fill="#8A8578" text-anchor="middle">识别不清留空 · 不编造</text>
+
+    <rect x="220" y="288" width="155" height="94" rx="3" fill="#FFFFFF" stroke="#D8DED4"/>
+    <text x="297" y="308" font-size="12" fill="#21374D" text-anchor="middle" font-weight="600">M2 病程时间轴</text>
+    <text x="297" y="326" font-size="10" fill="#5A6E80" text-anchor="middle">按 eventStart 聚合</text>
+    <text x="297" y="341" font-size="10" fill="#5A6E80" text-anchor="middle">病程分组筛选</text>
+    <text x="297" y="356" font-size="10" fill="#5A6E80" text-anchor="middle">指标跨记录趋势</text>
+    <text x="297" y="372" font-size="9.5" fill="#B3372B" text-anchor="middle">异常值 ↑↓ 印章标记</text>
+
+    <rect x="385" y="288" width="155" height="94" rx="3" fill="#FFFFFF" stroke="#D8DED4"/>
+    <text x="462" y="308" font-size="12" fill="#21374D" text-anchor="middle" font-weight="600">M3 知识图谱</text>
+    <text x="462" y="326" font-size="10" fill="#5A6E80" text-anchor="middle">六类实体 · 确定性推导</text>
+    <text x="462" y="341" font-size="10" fill="#5A6E80" text-anchor="middle">疾病·症状·药物</text>
+    <text x="462" y="356" font-size="10" fill="#5A6E80" text-anchor="middle">异常指标·检查·机构</text>
+    <text x="462" y="372" font-size="9.5" fill="#8A8578" text-anchor="middle">每条边可溯源 recordId</text>
+  </g>
+
+  <!-- M1 → 模型 API -->
+  <path d="M 132 288 L 132 276 L 415 276 L 415 172" fill="none" stroke="#21374D" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- 内核 -->
+  <rect x="55" y="396" width="485" height="46" rx="3" fill="#21374D"/>
+  <text x="297" y="415" font-size="12" fill="#FFFFFF" text-anchor="middle" font-weight="600">统一数据模型 record（三模块共用，不做二次转换）</text>
+  <text x="297" y="432" font-size="9.5" fill="#C9D4DD" text-anchor="middle">content.xsd 映射 · recordType 七类枚举 · UUID v4 · processingInfo 算法溯源</text>
+
+  <!-- 基础设施 -->
+  <rect x="55" y="456" width="235" height="52" rx="3" fill="#FFFFFF" stroke="#D8DED4"/>
+  <text x="172" y="477" font-size="11.5" fill="#21374D" text-anchor="middle" font-weight="600">本地持久化存储</text>
+  <text x="172" y="494" font-size="9.5" fill="#5A6E80" text-anchor="middle">rec:{id} 一键一记录 · subject</text>
+
+  <rect x="305" y="456" width="235" height="52" rx="3" fill="#FFFFFF" stroke="#D8DED4"/>
+  <text x="422" y="477" font-size="11.5" fill="#21374D" text-anchor="middle" font-weight="600">.phr 组包器</text>
+  <text x="422" y="494" font-size="9.5" fill="#5A6E80" text-anchor="middle">store-only ZIP · SHA-256 清单 · XML 生成</text>
+
+  <!-- SPA → .phr -->
+  <line x1="422" y1="537" x2="422" y2="572" stroke="#21374D" stroke-width="1.3" marker-end="url(#arr)"/>
+  <text x="432" y="560" font-size="10" fill="#5A6E80">导出</text>
+
+  <!-- .phr 产物 -->
+  <rect x="150" y="572" width="330" height="162" rx="4" fill="#FFFFFF" stroke="#21374D" stroke-width="1.5"/>
+  <text x="168" y="596" font-family="'Noto Serif SC',serif" font-size="13.5" fill="#21374D" font-weight="600">.phr 档案包（导出产物）</text>
+  <g font-family="'SF Mono','Menlo',monospace" font-size="10.5" fill="#5A6E80">
+    <text x="168" y="618">mimetype            application/phr+zip · 首条目</text>
+    <text x="168" y="636">manifest.xml        SHA-256 文件清单</text>
+    <text x="168" y="654">meta.xml / subject.xml / content.xml</text>
+    <text x="168" y="672">record/{id}/content.json      算法推导</text>
+    <text x="168" y="690">record/{id}/attachment/source.jpg 原件</text>
+  </g>
+  <text x="168" y="716" font-size="9.5" fill="#8A8578">通过官方 XSD 校验 · 可被任何符合规范的实现打开</text>
+  <g transform="rotate(-8 438 606)">
+    <rect x="408" y="588" width="60" height="34" rx="2" fill="none" stroke="#B3372B" stroke-width="1.6"/>
+    <text x="438" y="605" font-size="10" fill="#B3372B" text-anchor="middle" font-weight="600">已验</text>
+    <text x="438" y="616" font-size="7.5" fill="#B3372B" text-anchor="middle">XSD PASS</text>
+  </g>
+
+  <!-- ============ 右栏：生产形态 ============ -->
+  <rect x="620" y="130" width="250" height="48" rx="3" fill="#FFFFFF" stroke="#D8DED4"/>
+  <text x="745" y="150" font-size="12.5" fill="#21374D" text-anchor="middle" font-weight="600">前端 SPA（同左）</text>
+  <text x="745" y="166" font-size="10" fill="#5A6E80" text-anchor="middle">数据源切换为 REST /api/v1</text>
+
+  <rect x="900" y="130" width="240" height="48" rx="3" fill="#FFFFFF" stroke="#21374D" stroke-width="1.2"/>
+  <text x="1020" y="150" font-size="12.5" fill="#21374D" text-anchor="middle" font-weight="600">视觉大模型 API</text>
+  <text x="1020" y="166" font-size="10" fill="#5A6E80" text-anchor="middle">模型名/版本入库 · processingInfo 回溯</text>
+
+  <line x1="745" y1="178" x2="745" y2="210" stroke="#21374D" stroke-width="1.3" marker-end="url(#arr)"/>
+
+  <!-- 网关 -->
+  <rect x="620" y="210" width="520" height="42" rx="3" fill="#21374D"/>
+  <text x="880" y="230" font-size="12" fill="#FFFFFF" text-anchor="middle" font-weight="600">FastAPI 接入层</text>
+  <text x="880" y="245" font-size="9.5" fill="#C9D4DD" text-anchor="middle">验证码登录 + JWT · 全链路 TLS · /api/v1</text>
+
+  <line x1="710" y1="252" x2="710" y2="282" stroke="#21374D" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="880" y1="252" x2="880" y2="282" stroke="#21374D" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="1050" y1="252" x2="1050" y2="282" stroke="#21374D" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- 服务层 -->
+  <rect x="620" y="282" width="166" height="100" rx="3" fill="#FFFFFF" stroke="#D8DED4"/>
+  <text x="703" y="302" font-size="11.5" fill="#21374D" text-anchor="middle" font-weight="600">解析流水线</text>
+  <text x="703" y="319" font-size="9.5" fill="#5A6E80" text-anchor="middle">Celery worker</text>
+  <text x="703" y="334" font-size="9.5" fill="#5A6E80" text-anchor="middle">预处理 → 抽取 → 校验</text>
+  <text x="703" y="349" font-size="9.5" fill="#B3372B" text-anchor="middle">awaiting_review</text>
+  <text x="703" y="364" font-size="9.5" fill="#5A6E80" text-anchor="middle">确认后才落正式记录</text>
+
+  <rect x="797" y="282" width="166" height="100" rx="3" fill="#FFFFFF" stroke="#D8DED4"/>
+  <text x="880" y="302" font-size="11.5" fill="#21374D" text-anchor="middle" font-weight="600">记录与聚合服务</text>
+  <text x="880" y="319" font-size="9.5" fill="#5A6E80" text-anchor="middle">records 增删改查</text>
+  <text x="880" y="334" font-size="9.5" fill="#5A6E80" text-anchor="middle">timeline 病程聚合</text>
+  <text x="880" y="349" font-size="9.5" fill="#5A6E80" text-anchor="middle">graph 服务端推导</text>
+  <text x="880" y="364" font-size="9.5" fill="#8A8578" text-anchor="middle">与前端同一推导规则</text>
+
+  <rect x="974" y="282" width="166" height="100" rx="3" fill="#FFFFFF" stroke="#D8DED4"/>
+  <text x="1057" y="302" font-size="11.5" fill="#21374D" text-anchor="middle" font-weight="600">.phr 导出服务</text>
+  <text x="1057" y="319" font-size="9.5" fill="#5A6E80" text-anchor="middle">zipfile + lxml</text>
+  <text x="1057" y="334" font-size="9.5" fill="#5A6E80" text-anchor="middle">导出前 XSD 强校验</text>
+  <text x="1057" y="349" font-size="9.5" fill="#5A6E80" text-anchor="middle">不合规即失败</text>
+  <text x="1057" y="364" font-size="9.5" fill="#8A8578" text-anchor="middle">报具体元素路径</text>
+
+  <!-- 流水线 → 模型 -->
+  <path d="M 703 282 L 703 268 L 1020 268 L 1020 178" fill="none" stroke="#21374D" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <line x1="710" y1="382" x2="710" y2="412" stroke="#21374D" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="880" y1="382" x2="880" y2="412" stroke="#21374D" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="1050" y1="382" x2="1050" y2="412" stroke="#21374D" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- 存储层 -->
+  <rect x="620" y="412" width="166" height="72" rx="3" fill="#EAEFE8" stroke="#D8DED4"/>
+  <text x="703" y="434" font-size="11.5" fill="#21374D" text-anchor="middle" font-weight="600">PostgreSQL 16</text>
+  <text x="703" y="451" font-size="9.5" fill="#5A6E80" text-anchor="middle">records / parse_jobs</text>
+  <text x="703" y="466" font-size="9.5" fill="#5A6E80" text-anchor="middle">JSONB 结构化明细</text>
+
+  <rect x="797" y="412" width="166" height="72" rx="3" fill="#EAEFE8" stroke="#D8DED4"/>
+  <text x="880" y="434" font-size="11.5" fill="#21374D" text-anchor="middle" font-weight="600">对象存储</text>
+  <text x="880" y="451" font-size="9.5" fill="#5A6E80" text-anchor="middle">MinIO / OSS · 影像原件</text>
+  <text x="880" y="466" font-size="9.5" fill="#5A6E80" text-anchor="middle">短时效签名 URL</text>
+
+  <rect x="974" y="412" width="166" height="72" rx="3" fill="#EAEFE8" stroke="#D8DED4"/>
+  <text x="1057" y="434" font-size="11.5" fill="#21374D" text-anchor="middle" font-weight="600">Redis</text>
+  <text x="1057" y="451" font-size="9.5" fill="#5A6E80" text-anchor="middle">任务队列 broker</text>
+  <text x="1057" y="466" font-size="9.5" fill="#5A6E80" text-anchor="middle">失败重试 ≤2 次</text>
+
+  <!-- REST 接口注记 -->
+  <rect x="620" y="508" width="520" height="58" rx="3" fill="#FFFFFF" stroke="#D8DED4" stroke-dasharray="4 3"/>
+  <text x="636" y="530" font-size="10.5" fill="#21374D" font-weight="600">REST /api/v1 接口面</text>
+  <text x="636" y="549" font-family="'SF Mono','Menlo',monospace" font-size="9.5" fill="#5A6E80">uploads · parse-jobs(+confirm) · records · timeline · graph · export/phr · subject · auth</text>
+
+  <!-- 共用约定虚线 -->
+  <path d="M 1057 484 L 1057 596 L 480 646" fill="none" stroke="#8A8578" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#arrDash)"/>
+  <text x="800" y="612" font-size="10" fill="#8A8578">与 MVP 共用同一数据模型与 .phr 组包约定，前端平滑迁移</text>
+
+  <!-- 能力边界 -->
+  <rect x="40" y="772" width="1100" height="44" rx="3" fill="none" stroke="#B3372B" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="590" y="791" font-size="11.5" fill="#B3372B" text-anchor="middle" font-weight="600">能力边界（明确不做）</text>
+  <text x="590" y="808" font-size="10.5" fill="#5A6E80" text-anchor="middle">数字签名 signatures.xml　｜　包级加密 encryption.xml　｜　ICD / LOINC 术语编码映射　｜　任何诊断建议与治疗推荐 —— 工具只做整理、呈现、溯源</text>
+
+  <!-- 图例 -->
+  <g font-size="9.5" fill="#5A6E80">
+    <line x1="900" y1="86" x2="928" y2="86" stroke="#21374D" stroke-width="1.2" marker-end="url(#arr)"/>
+    <text x="934" y="90">数据/调用流</text>
+    <line x1="1010" y1="86" x2="1038" y2="86" stroke="#8A8578" stroke-width="1.2" stroke-dasharray="5 4"/>
+    <text x="1044" y="90">共用约定</text>
+  </g>
+</svg>

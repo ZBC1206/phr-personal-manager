@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:phr="https://www.omaha.org.cn/standard/phr/v1.0"
+           targetNamespace="https://www.omaha.org.cn/standard/phr/v1.0"
+           elementFormDefault="qualified"> 
+
+    <!--复杂元素的定义 -->
+    <xs:element name="meta">
+        <xs:annotation>
+            <xs:documentation>元数据：个人健康档案的描述信息</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="phr:title"/>
+                <xs:element ref="phr:creator"/>
+                <xs:element ref="phr:createTime"/>
+                <xs:element ref="phr:updater" minOccurs="0"/>
+                <xs:element ref="phr:updateTime" minOccurs="0"/>
+                <xs:element ref="phr:formatVersion"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- 简单元素的定义 -->
+    <xs:element name="title" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>标题：个人健康档案的文件标题</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="creator" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>创建者：个人健康档案的创建者，可以是本人或其他人</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="createTime" type="xs:dateTime">
+        <xs:annotation>
+            <xs:documentation>创建时间：个人健康档案的创建时间，精确到时间秒</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="updater" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>更新者：个人健康档案的最后更新者，可以是自己或者医生、或其他维护档案的人员</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="updateTime" type="xs:dateTime">
+        <xs:annotation>
+            <xs:documentation>更新时间：个人健康档案的最后更新时间，精确到时间秒</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+    <xs:element name="formatVersion" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>格式规范版本：标识个人健康档案封装包整体结构所遵循的规范版本</xs:documentation>
+        </xs:annotation>        
+    </xs:element>
+</xs:schema>
