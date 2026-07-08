@@ -12,9 +12,15 @@
 ## 特性
 
 智能解析（图片病历 → 结构化记录，AI 产物强制人工确认后入档，全程记录算法溯源信息）；
-横向病程时间轴（疾病泳道 × 时间轴，异常标红，点击展开）；疾病演进路径（阶段化事件链 +
-现状整理 + 就诊沟通要点，阶段划分由内容模板驱动）；检验指标跨记录趋势图；`.phr` 标准导出
+横向病程时间轴（疾病泳道 × 时间轴，异常标红，点击展开）；
+疾病演进路径（阶段化事件链 +
+现状整理 + 就诊沟通要点，阶段划分由内容模板驱动）；
+检验指标跨记录趋势图；`.phr` 标准导出
 （容器结构、SHA-256 清单、官方 XSD 校验全部通过，见 CI）；数据全部保存在本机。
+<img width="710" height="1134" alt="8095debae956347f6136d87981fa254f" src="https://github.com/user-attachments/assets/804ea20e-017f-4922-b504-1b910d4e12d3" />
+<img width="704" height="1129" alt="41374ab2f86258edc41d279d61aebf06" src="https://github.com/user-attachments/assets/4e794cd3-d9d4-4403-9926-3f4fff06aac8" />
+<img width="711" height="1167" alt="a967a4c341bdbb1744b62dc9115bd0ce" src="https://github.com/user-attachments/assets/63ba57f7-62ac-477c-bd04-d7b0793029fe" />
+
 
 ## 使用方式
 
